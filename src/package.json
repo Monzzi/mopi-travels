@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "description": "## Description",
   "main": "src/server/index.js",
+  "type": "module",
   "scripts": {
     "start": "node src/server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
 }

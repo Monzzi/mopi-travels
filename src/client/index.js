@@ -1,3 +1,58 @@
+const loadUnsplashImages = async () => {
+    try {
+        // Obtener imágenes de Unsplash
+        const response = await fetch('https://localhost:3000/api/images?query=nature&count=10', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al obtener imágenes de Unsplash');
+        }
+
+        const images = await response.json();
+
+        // **1. Galería**
+        const galleryGrid = document.querySelector('.gallery-grid');
+        galleryGrid.innerHTML = ''; // Limpia contenido previo
+
+        images.slice(0, 6).forEach((image) => {
+            const galleryItem = document.createElement('div');
+            galleryItem.classList.add('gallery-item');
+            galleryItem.innerHTML = `
+                <a href="${image.link}" target="_blank" rel="noopener noreferrer">
+                    <img src="${image.url}" alt="Imagen de Unsplash">
+                </a>
+            `;
+            galleryGrid.appendChild(galleryItem);
+        });
+
+        // **2. Eventos Destacados**
+        const eventCards = document.querySelectorAll('.event-card img');
+        eventCards.forEach((img, index) => {
+            if (images[index]) {
+                img.src = images[index].url;
+                img.alt = `Evento ${index + 1}`;
+            }
+        });
+
+        // **3. Banner Inicial**
+        const heroSection = document.querySelector('#hero');
+        if (images[0]) {
+            heroSection.style.backgroundImage = `url(${images[0].url})`;
+            heroSection.style.backgroundSize = 'cover';
+            heroSection.style.backgroundPosition = 'center';
+        }
+    } catch (error) {
+        console.error('Error cargando imágenes de Unsplash:', error);
+        alert('No se pudieron cargar las imágenes de Unsplash.');
+    }
+};
+
+// Llama a la función para cargar las imágenes al iniciar
+loadUnsplashImages();
+
+
 // Componentes
 const header = `
     <div class="container">
@@ -27,7 +82,8 @@ const featuredEvents = `
         <h2>Eventos Destacados</h2>
         <div class="events-grid">
             <div class="event-card">
-                <img src="/placeholder.svg?height=300&width=400" alt="Senderismo en los Andes">
+                <img src="https://via.placeholder.com/300x200" alt="Imagen de prueba">
+
                 <div class="content">
                     <h3>Senderismo en los Andes</h3>
                     <p>15 de Julio, 2024</p>
@@ -35,7 +91,7 @@ const featuredEvents = `
                 </div>
             </div>
             <div class="event-card">
-                <img src="/placeholder.svg?height=300&width=400" alt="Observación de Aves en la Amazonía">
+<img src="https://via.placeholder.com/300x200" alt="Imagen de prueba">
                 <div class="content">
                     <h3>Observación de Aves en la Amazonía</h3>
                     <p>22 de Agosto, 2024</p>
@@ -43,7 +99,7 @@ const featuredEvents = `
                 </div>
             </div>
             <div class="event-card">
-                <img src="/placeholder.svg?height=300&width=400" alt="Retiro de Yoga en la Playa">
+<img src="https://via.placeholder.com/300x200" alt="Imagen de prueba">
                 <div class="content">
                     <h3>Retiro de Yoga en la Playa</h3>
                     <p>5 de Septiembre, 2024</p>
@@ -82,22 +138,21 @@ const gallery = `
         <h2>Galería de Experiencias</h2>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="/placeholder.svg?height=400&width=600" alt="Galería 1">
+<img src="https://via.placeholder.com/300x200" alt="Imagen de prueba">
             </div>
             <div class="gallery-item">
-                <img src="/placeholder.svg?height=400&width=600" alt="Galería 2">
+<img src="https://via.placeholder.com/300x200" alt="Imagen de prueba">
             </div>
             <div class="gallery-item">
-                <img src="/placeholder.svg?height=400&width=600" alt="Galería 3">
+<img src="https://via.placeholder.com/300x200" alt="Imagen de prueba">
             </div>
             <div class="gallery-item">
-                <img src="/placeholder.svg?height=400&width=600" alt="Galería 4">
+<img src="https://via.placeholder.com/300x200" alt="Imagen de prueba">            </div>
+            <div class="gallery-item">
+<img src="https://via.placeholder.com/300x200" alt="Imagen de prueba">
             </div>
             <div class="gallery-item">
-                <img src="/placeholder.svg?height=400&width=600" alt="Galería 5">
-            </div>
-            <div class="gallery-item">
-                <img src="/placeholder.svg?height=400&width=600" alt="Galería 6">
+<img src="https://via.placeholder.com/300x200" alt="Imagen de prueba">
             </div>
         </div>
     </div>
